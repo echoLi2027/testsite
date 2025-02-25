@@ -1,4 +1,4 @@
-/* 
+
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 export default function decorate(block) {
@@ -17,12 +17,12 @@ export default function decorate(block) {
   block.textContent = '';
   block.append(ul);
 }
- */
 
+/* 
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 export default function decorate(block) {
-    /* change to ul, li */
+    // change to ul, li 
     const ul = document.createElement('ul');
     [...block.children].forEach((row) => {
         const li = document.createElement('li');
@@ -84,4 +84,4 @@ document.addEventListener("mouseout", (e) => {
     if (e.target.closest(".card")) {
         e.target.closest(".card").classList.remove("flipped");
     }
-});
+}); */
