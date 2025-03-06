@@ -530,6 +530,7 @@ async function fetchPlaceholders(prefix = 'default') {
         });
     });
   }
+  console.log("placeholder---->"+JSON.stringify(window.placeholder));
   return window.placeholders[`${prefix}`];
 }
 
