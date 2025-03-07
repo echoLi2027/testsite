@@ -1,0 +1,44 @@
+{
+    "project": "test for sidekick",
+    "plugins": [
+      {
+        "id": "asset-library",
+        "title": "My Assets",
+        "environments": [
+          "edit", "dev", "preview","live","prod"
+        ],
+        "url": "https://experience.adobe.com/solutions/CQ-assets-selectors/static-assets/resources/franklin/asset-selector.html",
+        "passConfig": true, // pass users' default configuration in current url
+        "passReferrer": true, //add source url as a referrer in current url
+        "excludePaths" :[
+            "**/en/**" // don't show plugins under this url
+        ],
+        "includePaths": [
+          "**/en/example/**" // but plugin will show under this url which is excluded before
+        ],
+        "isPalette": true, // open in a palette not a new window
+        "paletteRect": "top: 50px; bottom: 10px; right: 10px; left: auto; width:400px; height: calc(100vh - 60px)"
+      },
+      {
+        "containerId": "tools",
+        "id": "localize",
+        "title": "Localize",
+        "environments": [
+          "edit", "dev", "preview","live","prod"
+        ],
+        "url": "https://www.google.com/",
+        "isPalette": true
+      },
+      {
+        "containerId": "tools",
+        "id": "youtube",
+        "title": "Youtube",
+        "environments": [
+          "edit", "dev", "preview","live","prod"
+        ],
+        "url": "https://www.youtube.com/",
+        "isPalette": true
+      }
+
+    ]
+  }

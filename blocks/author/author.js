@@ -15,6 +15,9 @@ export default async function decorate(block){
   headingH1.textContent = headerText;
   headingDiv.append(headingH1);
 
+  
+/*
+
   const table = document.createElement('table');
 
   const headerRow = document.createElement("tr");
@@ -34,7 +37,7 @@ export default async function decorate(block){
 
   table.append(headerRow);
 
-  const dataRow = document.createElement("tr");
+ const dataRow = document.createElement("tr");
 
   const firstName = placeholders.firstName;
   const lastName = placeholders.lastName;
@@ -49,9 +52,9 @@ export default async function decorate(block){
     dataRow.append(td);
   });
 
-  table.append(dataRow);
+  table.append(dataRow); 
 
-  [...block.children].forEach((row) => {
+   [...block.children].forEach((row) => {
     const trow = document.createElement("tr");
     [...row.children].forEach((col) => {
       const tcol = document.createElement("td");
@@ -59,7 +62,37 @@ export default async function decorate(block){
       trow.append(tcol);
     });
     table.append(trow);
+  });  */
+
+  // Create the vertical table
+  const table = document.createElement('table');
+    
+  // Get field labels and values
+  const fields = [
+    { key: placeholders.fnameKey, value: placeholders.firstName},
+    { key: placeholders.lnameKey, value: placeholders.lastName},
+    { key: placeholders.roleKey, value: placeholders.role},
+    { key: placeholders.orgKey, value: placeholders.organization},
+    { key: placeholders.countryKey, value: placeholders.country}
+  ];
+  
+  // Create a row for each field (vertical layout)
+  fields.forEach(field => {
+    const row = document.createElement('tr');
+    
+    // Create the label cell as th
+    const labelCell = document.createElement('th');
+    labelCell.textContent = field.key;
+    row.appendChild(labelCell);
+    
+    // Create the value cell
+    const valueCell = document.createElement('td');
+    valueCell.textContent = field.value;
+    row.appendChild(valueCell);
+    
+    table.appendChild(row);
   });
+
 
   block.innerHTML = '';
   block.append(headingDiv);
