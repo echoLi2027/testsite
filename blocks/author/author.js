@@ -1,36 +1,70 @@
-import { fetchPlaceholders,getMetadata } from '../../scripts/aem.js';
-const placeholders = await fetchPlaceholders(getMetadata("locale"));
-console.log(placeholders);
-const { authorDetails,firstName,lastName,occupation,bio,topics} = placeholders;
+import { fetchPlaceholders, getMetadata } from "../../scripts/aem.js";
 
-export default function decorate(block) {
-    const headingDiv=document.createElement('div');
-    headingDiv.classList.add("table-heading");
-    const htext=document.createTextNode(authorDetails);
-    const headingH1=document.createElement('h1');
-    headingH1.append(htext);
-    headingDiv.append(headingH1);
-    
-    const table = document.createElement('table');
-    let tr=document.createElement("tr");
-    //let ad=document.createElement("th");ad.appendChild(document.createTextNode(authorDetails));tr.append(ad);
-    let fn=document.createElement("th");fn.appendChild(document.createTextNode(firstName));tr.append(fn);
-    let ln=document.createElement("th");ln.appendChild(document.createTextNode(lastName));tr.append(ln);
-    let oc=document.createElement("th");oc.appendChild(document.createTextNode(occupation));tr.append(oc);
-    let bi=document.createElement("th");bi.appendChild(document.createTextNode(bio));tr.append(bi);
-    let to=document.createElement("th");to.appendChild(document.createTextNode(topics));tr.append(to);
-    table.append(tr);
-    [...block.children].forEach((row,r) => {
-       let trow=document.createElement("tr");  
-      [...row.children].forEach((col,c) => {
-        console.log(" Row : Col  ",r,c);
-        let tcol=document.createElement("td");
-           tcol.appendChild(col);
-           trow.append(tcol);
-           row.replaceWith(trow);
-      });
-      table.append(trow);
+export default async function decorate(block){
+
+  const placeholders = await fetchPlaceholders(getMetadata("locale"));
+
+  console.log("Placeholders:", placeholders);
+
+  const headerText = placeholders.header;
+
+  // create the heading section
+  const headingDiv = document.createElement("div");
+  headingDiv.classList.add('table-heading');
+  const headingH1 = document.createElement('h1');
+  headingH1.textContent = headerText;
+  headingDiv.append(headingH1);
+
+  const table = document.createElement('table');
+
+  const headerRow = document.createElement("tr");
+
+  const fnameKey = placeholders.fnameKey;
+  const lnameKey = placeholders.lnameKey;
+  const roleKey = placeholders.roleKey;
+  const orgKey = placeholders.orgKey;
+  const countryKey = placeholders.countryKey;
+
+  const headers = [fnameKey, lnameKey, roleKey, orgKey, countryKey];
+  headers.forEach(header => {
+    const th = document.createElement("th");
+    th.textContent = header;
+    headerRow.append(th);
+  });
+
+  table.append(headerRow);
+
+  const dataRow = document.createElement("tr");
+
+  const firstName = placeholders.firstName;
+  const lastName = placeholders.lastName;
+  const role = placeholders.role;
+  const organization = placeholders.organization;
+  const country = placeholders.country;
+  
+  const values = [firstName, lastName, role, organization, country];
+  values.forEach(value => {
+    const td = document.createElement("td");
+    td.textContent = value;
+    dataRow.append(td);
+  });
+
+  table.append(dataRow);
+
+  [...block.children].forEach((row) => {
+    const trow = document.createElement("tr");
+    [...row.children].forEach((col) => {
+      const tcol = document.createElement("td");
+      tcol.append(col);
+      trow.append(tcol);
     });
-    block.append(headingDiv);
-    block.append(table);
-  }
+    table.append(trow);
+  });
+
+  block.innerHTML = '';
+  block.append(headingDiv);
+  block.append(table);
+
+
+
+}

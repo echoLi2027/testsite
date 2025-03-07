@@ -506,7 +506,16 @@ async function fetchPlaceholders(prefix = 'default') {
   window.placeholders = window.placeholders || {};
   if (!window.placeholders[prefix]) {
     window.placeholders[prefix] = new Promise((resolve) => {
-      fetch(`${prefix === 'default' ? '' : prefix}/placeholders.json`)
+      
+      let localizedURL = new URL(window.location.origin+"/"+prefix+"/placeholders.json");
+      if(prefix == ''){
+        localizedURL = new URLSearchParams(window.location.origin+"/placeholders.json");
+      }
+      console.log("URL ---------->",localizedURL);
+
+      // next line is original code
+      // fetch(`${prefix === 'default' ? '' : prefix}/placeholders.json`)
+      fetch(localizedURL)
         .then((resp) => {
           if (resp.ok) {
             return resp.json();
@@ -530,7 +539,7 @@ async function fetchPlaceholders(prefix = 'default') {
         });
     });
   }
-  console.log("placeholder---->"+JSON.stringify(window.placeholder));
+  // console.log("placeholder---->"+JSON.stringify(window.placeholder));
   return window.placeholders[`${prefix}`];
 }
 
