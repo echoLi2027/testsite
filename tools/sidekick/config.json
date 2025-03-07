@@ -52,10 +52,7 @@
         "title": "My Assets",
         "environments": ["edit", "dev", "preview", "live", "prod"],
         "url": "https://experience.adobe.com/solutions/CQ-assets-selectors/static-assets/resources/franklin/asset-selector.html",
-        "passConfig": true,
-        "passReferrer": true,
-        "isPalette": true,
-        "paletteRect": "top: 50px; bottom: 10px; right: 10px; left: auto; width:400px; height: calc(100vh - 60px)"
+        "isPalette": true
       },
       {
         "id": "localize",
@@ -63,13 +60,6 @@
         "environments": ["edit", "dev", "preview", "live", "prod"],
         "url": "https://www.google.com/",
         "isPalette": true
-      },
-      {
-        "id": "youtube",
-        "title": "Youtube",
-        "environments": ["edit", "dev", "preview", "live", "prod"],
-        "url": "https://www.youtube.com/",
-        "isPalette": true
-      }
+       }
     ]
   }
